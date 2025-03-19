@@ -7,20 +7,19 @@ services:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
       - //var/run/docker.sock:/var/run/docker.sock:ro
     ports:
-      - 8080:8080
+      - ${NEXTCLOUD_PORT}:8080
     environment:
-      - APACHE_PORT=11000
-      - APACHE_IP_BINDING=0.0.0.0
-      - SKIP_DOMAIN_VALIDATION=true
-#      Add below configuration to customize the Nextcloud instance, this are some important configurations
-#      - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.example.com # Add your domain here only one can be added
-#      - NEXTCLOUD_DATADIR=/mnt/cloud/nextcloud1 # Change the data directory if any other directory is used i.e. external storage
-#      - NEXTCLOUD_MEMORY_LIMIT=4096M # Change the memory limit if needed default is 512M which is less for large files
-#      - NEXTCLOUD_UPLOAD_LIMIT=256G # Change the upload limit if needed default is 512M which is less for large files
-#      - NEXTCLOUD_OVERWRITEHOST=nextcloud.example.com # Add your domain here only one can be added to overwrite the host
+      - APACHE_PORT=${NEXTCLOUD_APACHE_PORT}
+      - APACHE_IP_BINDING=${NEXTCLOUD_IP_BINDING}
+      - SKIP_DOMAIN_VALIDATION=${NEXTCLOUD_SKIP_DOMAIN_VALIDATION}
+      - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS}
+      - NEXTCLOUD_DATADIR=${NEXTCLOUD_DATADIR}
+      - NEXTCLOUD_MEMORY_LIMIT=${NEXTCLOUD_MEMORY_LIMIT}
+      - NEXTCLOUD_UPLOAD_LIMIT=${NEXTCLOUD_UPLOAD_LIMIT}
+      - NEXTCLOUD_OVERWRITEHOST=${NEXTCLOUD_OVERWRITEHOST}
 
 volumes:
   nextcloud_aio_mastercontainer:
     name: nextcloud_aio_mastercontainer
 
-#please use .env file to set the environment variables for the nextcloud instance like domain, data directory, memory limit, upload limit, etc.
+# Use a .env file to set environment variables like NEXTCLOUD_PORT, NEXTCLOUD_DATADIR, etc.
