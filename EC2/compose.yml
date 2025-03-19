@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: Caddy.Dockerfile
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env  # Load environment variables from .env file
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - proxy-net
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  proxy-net:
+    driver: bridge

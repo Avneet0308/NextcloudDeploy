@@ -1,0 +1,16 @@
+(cloudflare) {
+  tls {
+    dns cloudflare <Cloudflare Token>
+    resolvers 1.1.1.1
+  }
+}
+
+cozyhomelab.co.in {
+    reverse_proxy <homeserver-tailscale-IP>:11000
+    log {
+      output stdout level DEBUG
+    }
+    import cloudflare
+}
+
+#you can have .env file to store cloudflare token and tailscale homeserver IP
